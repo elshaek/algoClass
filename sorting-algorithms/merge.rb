@@ -24,4 +24,4 @@ end
 
 givenArr = [4, 6, 324, 345, 78, 34, 3874, 37, 78, 12, 48, 52]
 
-p mergeSort(givenArr);
+p mergeSort(givenArr)
