@@ -1,3 +1,5 @@
+# Solution 1
+
 def insertionSort(arr)
   arr.each_index do |i|
     num = arr[i]
