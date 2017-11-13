@@ -36,13 +36,9 @@ function binarySearchIterative(arr, val){
     var maxIndex = maxIndex || arr.length - 1;
     var midpoint = Math.floor((minIndex + maxIndex) / 2);
 
-    if (val === arr[midpoint]) {
-      return midpoint;
-    } else if (val < arr[midpoint]) {
-      maxIndex = midpoint - 1;
-    } else {
-      minIndex = midpoint + 1;
-    }
+    if (val === arr[midpoint]) return midpoint;
+    else if (val < arr[midpoint]) maxIndex = midpoint - 1;
+    else minIndex = midpoint + 1;
   }
   return -(arr.length + 1);
 }
