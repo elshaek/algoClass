@@ -43,8 +43,11 @@ function merge(left, right) {
   var sortedArr = [];
 
   while (left.length && right.length) {
-    if (left[0] <= right[0]) sortedArr.push(left.shift());
-    if (left[0] > right[0]) sortedArr.push(right.shift());
+    if (left[0] <= right[0]) {
+      sortedArr.push(left.shift());
+    } else {
+      sortedArr.push(right.shift());
+    }
   }
 
   return sortedArr.concat(left, right);
