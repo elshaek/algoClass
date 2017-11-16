@@ -29,9 +29,8 @@ def swap(arr, i, j)
 end
 
 def quicksort(arr, minIndex = 0, maxIndex = arr.length - 1)
-  return arr if arr.length < 2
-
-  pivot = partition(arr, minIndex, maxIndex)
+  pivot = partitionHoare(arr, minIndex, maxIndex)
+  # pivot = partitionLomuto(arr, minIndex, maxIndex)
 
   if minIndex < pivot - 1
     quicksort(arr, minIndex, pivot - 1)
@@ -44,15 +43,15 @@ def quicksort(arr, minIndex = 0, maxIndex = arr.length - 1)
   arr
 end
 
-def partition(arr, minIndex, maxIndex)
-  pivot = (minIndex + maxIndex) / 2
+def partitionHoare(arr, minIndex, maxIndex)
+  pivotIndex = (minIndex + maxIndex) / 2
 
   while minIndex < maxIndex
-    while arr[minIndex] < arr[pivot]
+    while arr[minIndex] < arr[pivotIndex]
       minIndex += 1
     end
 
-    while arr[maxIndex] > arr[pivot]
+    while arr[maxIndex] > arr[pivotIndex]
       maxIndex -= 1
     end
 
@@ -62,7 +61,21 @@ def partition(arr, minIndex, maxIndex)
       maxIndex -= 1
     end
   end
-  minIndex
+  return minIndex
+end
+
+def partitionLomuto(arr, minIndex, maxIndex)
+  pivot = maxIndex
+  i = minIndex
+
+  for j in minIndex...maxIndex
+    if arr[j] <= arr[pivot]
+      swap(arr, i, j)
+      i += 1
+    end
+  end
+  swap(arr, i, maxIndex)
+  return i
 end
 
 
