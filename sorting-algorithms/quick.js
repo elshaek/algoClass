@@ -52,7 +52,8 @@ function quicksort(arr, minIndex, maxIndex) {
   minIndex = minIndex || 0;
   maxIndex = maxIndex || arr.length - 1;
 
-  var pivotIndex = partition(arr, minIndex, maxIndex);
+  // var pivotIndex = partitionLomuto(arr, minIndex, maxIndex);
+  var pivotIndex = partitionHoare(arr, minIndex, maxIndex);
 
   if (minIndex < pivotIndex - 1) {
     quicksort(arr, minIndex, pivotIndex - 1);
@@ -63,10 +64,10 @@ function quicksort(arr, minIndex, maxIndex) {
   return arr;
 }
 
-function partition(arr, minIndex, maxIndex) {
+function partitionHoare(arr, minIndex, maxIndex) {
   var pivot = Math.floor((minIndex + maxIndex) / 2);
 
-  while (minIndex < maxIndex) {
+  while (minIndex < maxIndex) { // 0 < 11
     while (arr[minIndex] < arr[pivot]) {
       minIndex++;
     }
@@ -80,6 +81,20 @@ function partition(arr, minIndex, maxIndex) {
     }
   }
   return minIndex;
+}
+
+function partitionLomuto(arr, left, right) {
+  var pivot = arr[right];
+  var i = left;
+
+  for (var j = left; j < right; j++) {
+    if (arr[j] <= pivot) {
+      swap(arr, i, j);
+      i++;
+    }
+  }
+  swap(arr, i, right);
+  return i;
 }
 
 var givenArr = [4, 6, 324, 345, 78, 34, 3874, 37, 78, 12, 48, 52];
