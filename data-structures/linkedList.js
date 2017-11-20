@@ -88,59 +88,124 @@ function Node(value) {
 function LinkedList(headValue) {
   if (headValue === undefined) console.log('Must provide value for first node');
   this.head = new Node(headValue);
+  this.tail = this.head;
 }
 
 LinkedList.prototype.forEach = function(callback) {
-  // implement me...
+  var node = this.head;
+  while(node) {
+    callback(node.value);
+    node = node.next;
+  }
 };
-// Time complexity:
+// Time complexity: O(n); linear
 
 LinkedList.prototype.print = function() {
-  // implement me...
+  var list = [];
+  this.forEach(function(value) {
+    list.push(value);
+  })
+  return list.join(", ");
 };
-// Time complexity:
+// Time complexity: O(n); linear
 
 LinkedList.prototype.insertAfter = function(node, value) {
-  // implement me...
+  var newNode = new Node(value);
+  newNode.next = node.next;
+  node.next = newNode;
+
+  if(this.tail === node) this.tail = newNode;
+  return newNode;
 };
-// Time complexity:
+// Time complexity: O(1); constant
 
 LinkedList.prototype.removeAfter = function(node) {
-  // implement me...
+  var removedNode = node.next;
+  if (!removedNode) return 'This node is a tail node.'
+  node.next = removedNode.next;
+  removedNode.next = null;
+  if (this.tail === removedNode) this.tail = node;
+  return removedNode;
 };
-// Time complexity:
+// Time complexity: O(1); constant
 
 LinkedList.prototype.insertHead = function(value) {
-  // implement me...
+  var oldHead = this.head;
+  var newHead = new Node(value);
+  newHead.next = oldHead;
+  this.head = newHead;
+  return this.head;
 };
-// Time complexity:
+// Time complexity: O(1); constant
 
 LinkedList.prototype.removeHead = function() {
-  // implement me...
+  var oldHead = this.head;
+  var newHead = oldHead.next;
+  this.head = newHead;
+  oldHead.next = null;
+  return oldHead;
 }
 
 LinkedList.prototype.findNode = function(value) {
-  // implement me...
+  var node = this.head;
+  while (node) {
+    if (node.value === value) return node;
+    node.next;
+  }
+  return 'Node with value ' + value + ' does not exist.';
 };
-// Time complexity:
+// Time complexity: O(n); linear
 
 LinkedList.prototype.appendToTail = function(value) {
-  // implement me...
+  var newTail = new Node(value);
+  var oldTail = this.tail;
+  oldTail.next = newTail;
+  this.tail = newTail;
+  return newTail;
 };
-// Time complexity:
+// Time complexity: O(1); constant
 
 
 // PART 2:
 
 LinkedList.prototype.insertBefore = function(node, value) {
-  // implement me...
+  var nodeOne = this.head;
+  if (nodeOne === node) return this.insertHead(value);
+
+  var nodeTwo = nodeOne.next;
+  while (nodeTwo) {
+    if (nodeTwo === node) {
+      if (nodeTwo === this.tail) return this.appendToTail(value);
+
+      var newNode = new Node(value);
+      nodeOne.next = newNode;
+      newNode.next = nextNode;
+    }
+    nodeOne = nodeTwo;
+    nodeTwo = nodeTwo.next;
+  }
+  return "Node with value " + value + " does not exist";
 };
-// Time complexity:
+// Time complexity: O(n); linear
 
 LinkedList.prototype.removeBefore = function(node) {
-  // implement me...
+  var nodeOne = this.head;
+  var nodeTwo = nodeOne.next;
+  if (nodeTwo === node) return this.removeHead();
+
+  var nodeThree = nodeTwo.next;
+  while (nodeThree) {
+    if (nodeThree === node) {
+      nodeOne.next = nodeThree;
+      nodeTwo.next = null;
+    }
+    nodeOne = nodeTwo;
+    nodeTwo = nodeTwo.next;
+    nodeThree = nodeThree.next;
+  }
+  return "Node with value " + value + " does not exist";
 };
-// Time complexity:
+// Time complexity: O(n); linear
 
 
 
