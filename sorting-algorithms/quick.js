@@ -21,3 +21,82 @@ Variants:
 - Implement a multi-pivot quicksort (ex: partition into 3 subarrays using 2 pivots)
 
 */
+
+// Solution 1
+// function quicksort(arr) {
+//   if (arr.length < 2) return arr;
+
+//   var lesser = [];
+//   var greater = [];
+//   var pivot = arr[arr.length - 1];
+
+//   for (var i = 0; i < arr.length - 1; i++) {
+//     if (arr[i] <= pivot) {
+//       lesser.push(arr[i]);
+//     } else {
+//       greater.push(arr[i]);
+//     }
+//   }
+//   return quicksort(lesser).concat(pivot, quicksort(greater));
+// }
+
+
+// Solution 2
+function swap(arr, i, j) {
+  var temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+function quicksort(arr, minIndex, maxIndex) {
+  minIndex = minIndex || 0;
+  maxIndex = maxIndex || arr.length - 1;
+
+  // var pivotIndex = partitionLomuto(arr, minIndex, maxIndex);
+  var pivotIndex = partitionHoare(arr, minIndex, maxIndex);
+
+  if (minIndex < pivotIndex - 1) {
+    quicksort(arr, minIndex, pivotIndex - 1);
+  }
+  if (maxIndex > pivotIndex) {
+    quicksort(arr, pivotIndex, maxIndex);
+  }
+  return arr;
+}
+
+function partitionHoare(arr, minIndex, maxIndex) {
+  var pivot = Math.floor((minIndex + maxIndex) / 2);
+
+  while (minIndex < maxIndex) { // 0 < 11
+    while (arr[minIndex] < arr[pivot]) {
+      minIndex++;
+    }
+    while (arr[maxIndex] > arr[pivot]) {
+      maxIndex--;
+    }
+    if (minIndex <= maxIndex) {
+      swap(arr, minIndex, maxIndex);
+      minIndex++;
+      maxIndex--;
+    }
+  }
+  return minIndex;
+}
+
+function partitionLomuto(arr, left, right) {
+  var pivot = arr[right];
+  var i = left;
+
+  for (var j = left; j < right; j++) {
+    if (arr[j] <= pivot) {
+      swap(arr, i, j);
+      i++;
+    }
+  }
+  swap(arr, i, right);
+  return i;
+}
+
+var givenArr = [4, 6, 324, 345, 78, 34, 3874, 37, 78, 12, 48, 52];
+
+console.log(quicksort(givenArr));

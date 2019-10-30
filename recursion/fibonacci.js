@@ -8,3 +8,11 @@ output   0 1 1 2 3 5 8 13 21 34 ...
 
 What is the time complexity? Can you think of optimizing your solution? (Hint: look up dynamic programming)
 */
+
+function fibonacci(position) {
+  if (position == 0) return 0;
+  if (position == 1) return 1;
+  return fibonacci(position - 1) + fibonacci(position - 2)
+}
+
+console.log(fibonacci(9));
